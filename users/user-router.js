@@ -54,4 +54,15 @@ router.delete("/users/:id", validateUserId(), async (req, res, next) => {
 	}
 })
 
+// get a list of the user's posts
+router.get("/users/:id/posts", validateUserId(), async (req, res, next) => {
+	try {
+		const posts = await userModel.findPostsByUserId(req.params.id)
+		res.json(posts)
+	} catch (err) {
+		next(err)
+	}
+})
+
+
 module.exports = router
